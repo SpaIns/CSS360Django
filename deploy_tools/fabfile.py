@@ -3,12 +3,14 @@ from fabric.contrib.files import append, exists, sed
 from fabric.api import *
 import random
 import os
+import logging
 
-REPO_URL = 'https://github.com/SpaIns/VolunteerSearch.git'
+REPO_URL = 'https://github.com/SpaIns/CSS360Django.git'
 env.user = 'Spa'
 env.hosts = ['www.volunteersearch.net']
 #env.key_filename = os.path.expanduser('~') + '/Downloads/amazon/ololo.pem'
 
+logging.basicConfig(level=logging.DEBUG)
 
 def deploy():
     site_folder = '/home/%s/sites/%s' % (env.user, env.host)
