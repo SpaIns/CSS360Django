@@ -3,14 +3,14 @@ from fabric.contrib.files import append, exists, sed
 from fabric.api import *
 import random
 import os
-import logging
+#import logging
 
 REPO_URL = 'https://github.com/SpaIns/CSS360Django.git'
 env.user = 'Spa'
 env.hosts = ['www.volunteersearch.net']
 #env.key_filename = os.path.expanduser('~') + '/Downloads/amazon/ololo.pem'
 
-logging.basicConfig(level=logging.DEBUG)
+#logging.basicConfig(level=logging.DEBUG)
 
 def deploy():
     site_folder = '/home/%s/sites/%s' % (env.user, env.host)
@@ -38,13 +38,13 @@ def _get_latest_version(source_folder):
 
 
 def _update_settings(source_folder, site_name):
-    settings_path = source_folder + '/superlist/settings.py'
+    settings_path = source_folder + '/superlists/settings.py'
     sed(settings_path, 'DEBUG = True', 'DEBUG = False')
     sed(settings_path,
         'ALLOWED_HOSTS = .+$',
         'ALLOWED_HOSTS = ["%s"]' % (site_name,)
     )
-    secret_key_file = source_folder + "/superlist/secret_key.py"
+    secret_key_file = source_folder + "/superlists/secret_key.py"
     if not exists(secret_key_file):
         chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
         key = ''.join(random.SystemRandom().choice(chars) for _ in range(50))
